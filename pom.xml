@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.wavefront</groupId>
+    <artifactId>wavefront-appagent-sdk-jvm</artifactId>
+    <version>0.9.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>Wavefront by VMware AppAgent SDK for JVM</name>
+    <description>Use this SDK in your JVM to collect out of the box JVM diagnostics metrics.</description>
+    <url>https://github.com/wavefrontHQ/wavefront-appagent-sdk-jvm</url>
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Sushant Dewan</name>
+            <email>sushant@wavefront.com</email>
+            <organization>Wavefront</organization>
+            <organizationUrl>http://www.wavefront.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git@github.com:wavefronthq/wavefront-appagent-sdk-jvm.git</connection>
+        <developerConnection>scm:git:git@github.com:wavefronthq/wavefront-appagent-sdk-jvm.git</developerConnection>
+        <url>git@github.com:wavefronthq/wavefront-appagent-sdk-jvm.git</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <properties>
+        <io.dropwizard.metrics5.version>5.0.0-rc2</io.dropwizard.metrics5.version>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <filters>
+                                <filter>
+                                    <excludes>
+                                        <exclude>META-INF/license/**</exclude>
+                                        <exclude>license/**</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.wavefront</groupId>
+            <artifactId>wavefront-internal-reporter-java</artifactId>
+            <version>0.9.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.wavefront</groupId>
+            <artifactId>wavefront-sdk-java</artifactId>
+            <version>0.9.0</version>
+        </dependency>
+    </dependencies>
+</project>
