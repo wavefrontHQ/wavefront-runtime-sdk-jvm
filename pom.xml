@@ -41,7 +41,6 @@
     </distributionManagement>
 
     <properties>
-        <io.dropwizard.metrics5.version>5.0.0-rc2</io.dropwizard.metrics5.version>
         <java.version>1.8</java.version>
     </properties>
 
@@ -92,7 +91,7 @@
         <dependency>
             <groupId>com.wavefront</groupId>
             <artifactId>wavefront-sdk-java</artifactId>
-            <version>0.9.0</version>
+            <version>0.9.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

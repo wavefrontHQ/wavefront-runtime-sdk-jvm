@@ -35,11 +35,12 @@ public class WavefrontJvmReporter {
   private WavefrontJvmReporter(WavefrontInternalReporter wfReporter,
                                int reportingIntervalSeconds,
                                WavefrontMetricSender wavefrontMetricSender,
-                               ApplicationTags applicationTags) {
+                               ApplicationTags applicationTags,
+                               String source) {
     this.wfReporter = wfReporter;
     this.reportingIntervalSeconds = reportingIntervalSeconds;
     heartbeaterService = new HeartbeaterService(wavefrontMetricSender, applicationTags,
-        JVM_COMPONENT);
+        JVM_COMPONENT, source);
   }
 
   /**
@@ -53,6 +54,7 @@ public class WavefrontJvmReporter {
    * Stop the reporter. Invoke this method before your JVM shuts down.
    */
   public void stop() {
+    wfReporter.stop();
     heartbeaterService.close();
   }
 
@@ -131,7 +133,7 @@ public class WavefrontJvmReporter {
           prefixedWith(prefix).withSource(source).withReporterPointTags(pointTags).
           includeJvmMetrics().build(wavefrontSender);
       return new WavefrontJvmReporter(wfReporter, reportingIntervalSeconds, wavefrontSender,
-          applicationTags);
+          applicationTags, source);
     }
   }
 }
