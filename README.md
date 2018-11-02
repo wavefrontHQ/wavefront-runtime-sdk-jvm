@@ -1,6 +1,6 @@
 # Wavefront JVM SDK
 
-This SDK provides support for reporting JVM metrics for your JVM application. That data is reported to Wavefront via proxy or direct ingestion. That data will help you understand how your JVM application is performing in production.
+This SDK provides out of the box JVM metrics for your Java application. The data can be sent to Wavefront using either the [proxy](https://docs.wavefront.com/proxies.html) or [direct ingestion](https://docs.wavefront.com/direct_ingestion.html). You can analyze the data in [Wavefront](https://www.wavefront.com) to better understand how your application is performing in production.
 
 ## Maven
 If you are using Maven, add following maven dependency to your pom.xml:
@@ -17,17 +17,17 @@ This SDK provides a `WavefrontJvmReporter` for collecting JVM metrics.
 
 To create a `WavefrontJvmReporter`:
 1. Create an instance of `ApplicationTags` providing metadata about your application
-2. Create a WavefrontSender: a low-level interface that handles sending data to Wavefront
+2. Create a `WavefrontSender`: a low-level interface that handles sending data to Wavefront
 3. Finally create a `WavefrontJvmReporter`
 
 The sections below detail each of the above steps.
 
 ### 1. Application Tags
 
-The application tags determine the metadata (aka point/span tags) that are included with the metrics/histograms/traces reported to Wavefront.
+The application tags determine the metadata (aka point tags) that are included with the JVM metrics reported to Wavefront.
 
 The following tags are mandatory:
-* `application`: The name of your Jersey based application, for example: `OrderingApp`.
+* `application`: The name of your application, for example: `OrderingApp`.
 * `service`: The name of the microservice within your application, for example: `inventory`.
 
 The following tags are optional:
