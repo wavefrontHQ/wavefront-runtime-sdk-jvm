@@ -75,10 +75,11 @@ To create the `WavefrontJvmReporter`:
 // Create WavefrontJvmReporter.Builder using applicationTags
 WavefrontJvmReporter.Builder builder = new WavefrontJvmReporter.Builder(applicationTags);
 
-// Set the source for your metrics and histograms
+// Optinal: Set the source for your metrics and histograms
+// Defaults to hostname if omitted
 builder.withSource("mySource");
 
-// Optionally change the reporting frequency to 30 seconds, defaults to 1 min
+// Optional: change the reporting frequency to 30 seconds, defaults to 1 min
 builder.reportingIntervalSeconds(30);
 
 // Create a WavefrontJvmReporter using ApplicationTags metadata and WavefronSender
