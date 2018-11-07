@@ -73,19 +73,17 @@ If the SDKs are used on different JVM processes, then you should instantiate one
 To create the `WavefrontJvmReporter`:
 ```java
 // Create WavefrontJvmReporter.Builder using applicationTags
-WavefrontJvmReporter.Builder builder = new WavefrontJvmReporter.Builder(applicationTags);
+WavefrontJvmReporter.Builder wfJvmReporterBuilder = new WavefrontJvmReporter.Builder(applicationTags);
 
 // Optinal: Set the source for your metrics and histograms
 // Defaults to hostname if omitted
-builder.withSource("mySource");
+wfJvmReporterBuilder.withSource("mySource");
 
 // Optional: change the reporting frequency to 30 seconds, defaults to 1 min
-builder.reportingIntervalSeconds(30);
+wfJvmReporterBuilder.reportingIntervalSeconds(30);
 
-// Create a WavefrontJvmReporter using ApplicationTags metadata and WavefronSender
-WavefrontJvmReporter wfJvmReporter = new WavefrontJvmReporter.
-    Builder(applicationTags).
-    build(wavefrontSender);
+// Create a WavefrontJvmReporter by passing in the WavefronSender
+WavefrontJvmReporter wfJvmReporter = wfJvmReporterBuilder.build(wavefrontSender);
 ```
 Replace the source `mySource` with a relevant source name. The source should be identical across all the Wavefront SDKs.
 
