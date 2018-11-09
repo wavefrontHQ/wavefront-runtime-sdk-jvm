@@ -59,15 +59,12 @@ You would typically define the above metadata in your application's YAML config 
 
 ### 2. WavefrontSender
 
-The `WavefrontJvmReporter` requires a WavefrontSender: A low-level interface that knows how to send data to Wavefront. There are two implementations of the Wavefront sender:
+The `WavefrontJvmReporter` requires a `WavefrontSender`, which implements the low-level interface for sending data to Wavefront. 
 
-* `WavefrontProxyClient`: To send data to the Wavefront proxy
-* `WavefrontDirectIngestionClient`: To send data to Wavefront using direct ingestion
+* If you have already set up a `WavefrontSender` for another SDK that will run in the same JVM, use that one.  (For details about sharing a `WavefrontSender` instance, see [Sharing a WavefrontSender](https://github.com/wavefrontHQ/wavefront-sdk-java/blob/master/docs/sender.md).)
 
-See the [Wavefront sender documentation](https://github.com/wavefrontHQ/wavefront-sdk-java/blob/master/README.md#wavefrontsender) for details on instantiating a proxy or direct ingestion client.
+* Otherwise, follow the steps in [Set Up a WavefrontSender](https://github.com/wavefrontHQ/wavefront-sdk-java/blob/master/README.md#set-up-a-wavefrontsender) to send data using either the [Wavefront proxy](https://docs.wavefront.com/proxies.html) or [direct ingestion](https://docs.wavefront.com/direct_ingestion.html).
 
-**Note:** When using more than one Wavefront SDK (i.e. wavefront-opentracing-sdk-java, wavefront-dropwizard-metrics-sdk-java, wavefront-jersey-sdk-java, wavefront-grpc-sdk-java etc.), then you should instantiate the WavefrontSender only once within the same JVM process.
-If the SDKs are used on different JVM processes, then you should instantiate one WavefrontSender per JVM.
 
 ### 3. Create WavefrontJvmReporter
 To create the `WavefrontJvmReporter`:
