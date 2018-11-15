@@ -62,7 +62,7 @@
         <dependency>
             <groupId>com.wavefront</groupId>
             <artifactId>wavefront-internal-reporter-java</artifactId>
-            <version>0.9.0-SNAPSHOT</version>
+            <version>0.9.0</version>
         </dependency>
     </dependencies>
 </project>
