@@ -1,9 +1,9 @@
 # Wavefront JVM SDK
 
-This SDK provides out of the box JVM metrics for your Java application. The data can be sent to Wavefront using either the [proxy](https://docs.wavefront.com/proxies.html) or [direct ingestion](https://docs.wavefront.com/direct_ingestion.html). You can analyze the data in [Wavefront](https://www.wavefront.com) to better understand how your application is performing in production.
+The Wavefront by VMware JVM SDK provides out of the box metrics for the Java Virtual Machine (JVM) that runs your Java application. You can analyze the data in [Wavefront](https://www.wavefront.com) to better understand how your application is performing in production.
 
 ## Maven
-If you are using Maven, add following maven dependency to your pom.xml:
+If you are using Maven, add the following maven dependency to your pom.xml:
 ```
 <dependency>
     <groupId>com.wavefront</groupId>
@@ -11,90 +11,77 @@ If you are using Maven, add following maven dependency to your pom.xml:
     <version>$releaseVersion</version>
 </dependency>
 ```
-
 Replace `$releaseVersion` with the latest version available on [maven](http://search.maven.org/#search%7Cga%7C1%7Cwavefront-runtime-sdk-jvm).
 
-## WavefrontJvmReporter
+## Set Up a WavefrontJvmReporter
 This SDK provides a `WavefrontJvmReporter` for collecting JVM metrics.
 
 To create a `WavefrontJvmReporter`:
-1. Create an instance of `ApplicationTags` providing metadata about your application
-2. Create a `WavefrontSender`: a low-level interface that handles sending data to Wavefront
-3. Finally create a `WavefrontJvmReporter`
+1. Create an `ApplicationTags` instance, which specifies metadata metadata about your application.
+2. Create a `WavefrontSender` for sending data to Wavefront.
+3. Create a `WavefrontJvmReporter` instance.
 
-The sections below detail each of the above steps.
+For the details of each step, see the sections below.
 
-### 1. Application Tags
+### 1. Set Up Application Tags
 
-The application tags determine the metadata (aka point tags) that are included with the JVM metrics reported to Wavefront.
+The application tags determine the metadata (point tags) that are included with the JVM metrics reported to Wavefront. These tags enable you to filter and query the reported JVM metrics in Wavefront.
 
-The following tags are mandatory:
-* `application`: The name of your application, for example: `OrderingApp`.
-* `service`: The name of the microservice within your application, for example: `inventory`.
+You encapsulate application tags in an `ApplicationTags` object.
+See [Instantiating ApplicationTags](https://github.com/wavefrontHQ/wavefront-sdk-java/blob/master/docs/apptags.md) for details.
 
-The following tags are optional:
-* `cluster`: For example: `us-west-2`.
-* `shard`: The shard (aka mirror), for example: `secondary`.
+### 2. Set Up a WavefrontSender
 
-You can also optionally add custom tags specific to your application in the form of a `HashMap` (see example below).
+A `WavefrontSender` object implements the low-level interface for sending data to Wavefront. You can choose to send data using either the [Wavefront proxy](https://docs.wavefront.com/proxies.html) or [direct ingestion](https://docs.wavefront.com/direct_ingestion.html).
 
-To create the application tags:
+* If you have already set up a `WavefrontSender` for another SDK that will run in the same JVM, use that one.  (For details about sharing a `WavefrontSender` instance, see [Share a WavefrontSender](https://github.com/wavefrontHQ/wavefront-sdk-java/blob/master/docs/sender.md#share-a-wavefrontsender).)
+
+* Otherwise, follow the steps in [Set Up a WavefrontSender](https://github.com/wavefrontHQ/wavefront-sdk-java/blob/master/docs/sender.md#set-up-a-wavefrontsender).
+
+
+### 3. Create the WavefrontJvmReporter
+A `WavefrontJvmReporter` reports metrics to Wavefront.
+
+To build a `WavefrontJvmReporter`, you must specify:
+* An `ApplicationTags` object.
+* A `WavefrontSender` object.
+
+You can optionally specify:
+* A nondefault source for the reported data. If you omit the source, the host name is automatically used. The source should be identical across all the Wavefront SDKs running in the same JVM.
+* A nondefault reporting interval, which controls how often data is reported to the `WavefrontSender`. The reporting interval determines the timestamps on the data sent to Wavefront. If you omit the reporting interval, data is reported once a minute.
+ 
 ```java
-String application = "OrderingApp";
-String service = "inventory";
-String cluster = "us-west-2";
-String shard = "secondary";
 
-Map<String, String> customTags = new HashMap<String, String>() {{
-  put("location", "Oregon");
-  put("env", "Staging");
-}};
+ApplicationTags applicationTags = buildTags(); // pseudocode; see above
+WavefrontSender wavefrontSender = buildWavefrontSender(); // pseudocode; see above
 
-ApplicationTags applicationTags = new ApplicationTags.Builder(application, service).
-    cluster(cluster).       // optional
-    shard(shard).           // optional
-    customTags(customTags). // optional
-    build();
-```
-
-You would typically define the above metadata in your application's YAML config file and create the `ApplicationTags`.
-
-### 2. WavefrontSender
-
-The `WavefrontJvmReporter` requires a WavefrontSender: A low-level interface that knows how to send data to Wavefront. There are two implementations of the Wavefront sender:
-
-* `WavefrontProxyClient`: To send data to the Wavefront proxy
-* `WavefrontDirectIngestionClient`: To send data to Wavefront using direct ingestion
-
-See the [Wavefront sender documentation](https://github.com/wavefrontHQ/wavefront-sdk-java/blob/master/README.md#wavefrontsender) for details on instantiating a proxy or direct ingestion client.
-
-**Note:** When using more than one Wavefront SDK (i.e. wavefront-opentracing-sdk-java, wavefront-dropwizard-metrics-sdk-java, wavefront-jersey-sdk-java, wavefront-grpc-sdk-java etc.), then you should instantiate the WavefrontSender only once within the same JVM process.
-If the SDKs are used on different JVM processes, then you should instantiate one WavefrontSender per JVM.
-
-### 3. Create WavefrontJvmReporter
-To create the `WavefrontJvmReporter`:
-```java
 // Create WavefrontJvmReporter.Builder using applicationTags
 WavefrontJvmReporter.Builder wfJvmReporterBuilder = new WavefrontJvmReporter.Builder(applicationTags);
 
-// Optinal: Set the source for your metrics and histograms
-// Defaults to hostname if omitted
-wfJvmReporterBuilder.withSource("mySource");
+// Optionally set the source name to "mySource" for your metrics and histograms.
+// Omit this statement to use the host name.
+wfJvmReporterBuilder.withSource("mySource"); 
 
-// Optional: change the reporting frequency to 30 seconds, defaults to 1 min
+// Optionally change the reporting interval to 30 seconds. Default is 1 minute.
 wfJvmReporterBuilder.reportingIntervalSeconds(30);
 
-// Create a WavefrontJvmReporter by passing in the WavefronSender
+// Create a WavefrontJvmReporter with the WavefronSender.
 WavefrontJvmReporter wfJvmReporter = wfJvmReporterBuilder.build(wavefrontSender);
 ```
-Replace the source `mySource` with a relevant source name. The source should be identical across all the Wavefront SDKs.
 
-### Starting and stopping the reporter
+## Start the WavefrontJvmReporter
+You start the `WavefrontJvmReporter` explicitly to start reporting JVM metrics. 
+
 ```java
-// After instantiating, start the reporter
+// Start the reporter
 wfJvmReporter.start();
+```
 
-// Before shutting down your JVM, stop your reporter
+## Stop the WavefrontJvmReporter
+You must explicitly stop the `WavefrontJvmReporter` before shutting down your JVM.
+
+```java
+// Stop the reporter
 wfJvmReporter.stop();
 ```
 
