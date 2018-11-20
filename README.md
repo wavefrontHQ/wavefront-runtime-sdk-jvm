@@ -7,10 +7,12 @@ If you are using Maven, add following maven dependency to your pom.xml:
 ```
 <dependency>
     <groupId>com.wavefront</groupId>
-    <artifactId>wavefront-appagent-sdk-jvm</artifactId>
-    <version>0.9.0</version>
+    <artifactId>wavefront-runtime-sdk-jvm</artifactId>
+    <version>$releaseVersion</version>
 </dependency>
 ```
+
+Replace `$releaseVersion` with the latest version available on [maven](http://search.maven.org/#search%7Cga%7C1%7Cwavefront-runtime-sdk-jvm).
 
 ## WavefrontJvmReporter
 This SDK provides a `WavefrontJvmReporter` for collecting JVM metrics.
