@@ -1,16 +1,17 @@
-# Wavefront JVM SDK
+# Wavefront JVM SDK [![build status][ci-img]][ci] [![Released Version][maven-img]][maven]
 
 The Wavefront by VMware JVM SDK provides out of the box metrics for the Java Virtual Machine (JVM) that runs your Java application. You can analyze the data in [Wavefront](https://www.wavefront.com) to better understand how your application is performing in production.
 
 ## Maven
 If you are using Maven, add the following maven dependency to your pom.xml:
-```
+```xml
 <dependency>
     <groupId>com.wavefront</groupId>
     <artifactId>wavefront-runtime-sdk-jvm</artifactId>
     <version>$releaseVersion</version>
 </dependency>
 ```
+
 Replace `$releaseVersion` with the latest version available on [maven](http://search.maven.org/#search%7Cga%7C1%7Cwavefront-runtime-sdk-jvm).
 
 ## Set Up a WavefrontJvmReporter
@@ -49,7 +50,7 @@ To build a `WavefrontJvmReporter`, you must specify:
 You can optionally specify:
 * A nondefault source for the reported data. If you omit the source, the host name is automatically used. The source should be identical across all the Wavefront SDKs running in the same JVM.
 * A nondefault reporting interval, which controls how often data is reported to the `WavefrontSender`. The reporting interval determines the timestamps on the data sent to Wavefront. If you omit the reporting interval, data is reported once a minute.
- 
+
 ```java
 
 ApplicationTags applicationTags = buildTags(); // pseudocode; see above
@@ -60,7 +61,7 @@ WavefrontJvmReporter.Builder wfJvmReporterBuilder = new WavefrontJvmReporter.Bui
 
 // Optionally set the source name to "mySource" for your metrics and histograms.
 // Omit this statement to use the host name.
-wfJvmReporterBuilder.withSource("mySource"); 
+wfJvmReporterBuilder.withSource("mySource");
 
 // Optionally change the reporting interval to 30 seconds. Default is 1 minute.
 wfJvmReporterBuilder.reportingIntervalSeconds(30);
@@ -70,7 +71,7 @@ WavefrontJvmReporter wfJvmReporter = wfJvmReporterBuilder.build(wavefrontSender)
 ```
 
 ## Start the WavefrontJvmReporter
-You start the `WavefrontJvmReporter` explicitly to start reporting JVM metrics. 
+You start the `WavefrontJvmReporter` explicitly to start reporting JVM metrics.
 
 ```java
 // Start the reporter
@@ -88,3 +89,8 @@ wfJvmReporter.stop();
 ## JVM metrics
 
 You can go to Wavefront and see the JVM metrics with the prefix `app-agent.jvm.*`.
+
+[ci-img]: https://travis-ci.com/wavefrontHQ/wavefront-runtime-sdk-jvm.svg?branch=master
+[ci]: https://travis-ci.com/wavefrontHQ/wavefront-runtime-sdk-jvm
+[maven-img]: https://img.shields.io/maven-central/v/com.wavefront/wavefront-runtime-sdk-jvm.svg?maxAge=2592000
+[maven]: http://search.maven.org/#search%7Cga%7C1%7Cwavefront-runtime-sdk-jvm
