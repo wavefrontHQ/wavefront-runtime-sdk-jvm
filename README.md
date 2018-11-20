@@ -3,7 +3,7 @@
 The Wavefront by VMware JVM SDK provides out of the box metrics for the Java Virtual Machine (JVM) that runs your Java application. You can analyze the data in [Wavefront](https://www.wavefront.com) to better understand how your application is performing in production.
 
 ## Maven
-If you are using Maven, add following maven dependency to your pom.xml:
+If you are using Maven, add the following maven dependency to your pom.xml:
 ```
 <dependency>
     <groupId>com.wavefront</groupId>
@@ -32,11 +32,11 @@ See [Instantiating ApplicationTags](https://github.com/wavefrontHQ/wavefront-sdk
 
 ### 2. Set Up a WavefrontSender
 
-A `WavefrontSender` object implements the low-level interface for sending data to Wavefront. 
+A `WavefrontSender` object implements the low-level interface for sending data to Wavefront. You can choose to send data using either the [Wavefront proxy](https://docs.wavefront.com/proxies.html) or [direct ingestion](https://docs.wavefront.com/direct_ingestion.html).
 
-* If you have already set up a `WavefrontSender` for another SDK that will run in the same JVM, use that one.  (For details about sharing a `WavefrontSender` instance, see [Sharing a WavefrontSender](https://github.com/wavefrontHQ/wavefront-sdk-java/blob/master/docs/sender.md).)
+* If you have already set up a `WavefrontSender` for another SDK that will run in the same JVM, use that one.  (For details about sharing a `WavefrontSender` instance, see [Share a WavefrontSender](https://github.com/wavefrontHQ/wavefront-sdk-java/blob/master/docs/sender.md#share-a-wavefrontsender).)
 
-* Otherwise, follow the steps in [Set Up a WavefrontSender](https://github.com/wavefrontHQ/wavefront-sdk-java/blob/master/README.md#set-up-a-wavefrontsender) to send data using either the [Wavefront proxy](https://docs.wavefront.com/proxies.html) or [direct ingestion](https://docs.wavefront.com/direct_ingestion.html).
+* Otherwise, follow the steps in [Set Up a WavefrontSender](https://github.com/wavefrontHQ/wavefront-sdk-java/blob/master/docs/sender.md#set-up-a-wavefrontsender).
 
 
 ### 3. Create the WavefrontJvmReporter
