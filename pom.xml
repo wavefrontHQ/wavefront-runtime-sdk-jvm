@@ -7,7 +7,7 @@
     <version>0.9.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Wavefront by VMware runtime SDK for JVM</name>
+    <name>Wavefront by VMware JVM SDK</name>
     <description>Use this SDK in your JVM to collect out of the box JVM diagnostics metrics.</description>
     <url>https://github.com/wavefrontHQ/wavefront-runtime-sdk-jvm</url>
     <licenses>
