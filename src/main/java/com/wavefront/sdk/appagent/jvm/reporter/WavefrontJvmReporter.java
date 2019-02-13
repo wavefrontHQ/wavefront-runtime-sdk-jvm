@@ -6,13 +6,13 @@ import com.wavefront.sdk.common.application.ApplicationTags;
 import com.wavefront.sdk.common.application.HeartbeaterService;
 import com.wavefront.sdk.entities.metrics.WavefrontMetricSender;
 
+import javax.annotation.Nullable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-import javax.annotation.Nullable;
 
 import static com.wavefront.sdk.appagent.jvm.Constants.JVM_COMPONENT;
 import static com.wavefront.sdk.common.Constants.APPLICATION_TAG_KEY;
@@ -40,7 +40,7 @@ public class WavefrontJvmReporter {
     this.wfReporter = wfReporter;
     this.reportingIntervalSeconds = reportingIntervalSeconds;
     heartbeaterService = new HeartbeaterService(wavefrontMetricSender, applicationTags,
-        JVM_COMPONENT, source);
+            Collections.singletonList(JVM_COMPONENT), source);
   }
 
   /**
