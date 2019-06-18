@@ -1,6 +1,6 @@
 open_source_licenses.txt
 
-Wavefront by VMware JVM SDK 0.9.5 GA
+Wavefront by VMware JVM SDK 0.9.6 GA
 
 ======================================================================
 
@@ -27,14 +27,15 @@ of the license associated with each component.
 
 SECTION 1: Apache License, V2.0
 
-   >>> com.fasterxml.jackson.core:jackson-annotations-2.9.7
-   >>> com.fasterxml.jackson.core:jackson-core-2.9.6
-   >>> com.fasterxml.jackson.core:jackson-databind-2.9.6
-   >>> com.fasterxml.jackson.dataformat:jackson-dataformat-yaml-2.9.6
+   >>> com.fasterxml.jackson.core:jackson-annotations-2.9.0
+   >>> com.fasterxml.jackson.core:jackson-annotations-2.9.9
+   >>> com.fasterxml.jackson.core:jackson-core-2.9.9
+   >>> com.fasterxml.jackson.core:jackson-databind-2.9.9
+   >>> com.fasterxml.jackson.dataformat:jackson-dataformat-yaml-2.9.9
    >>> com.tdunning:t-digest-3.2
    >>> io.dropwizard.metrics5:metrics-core-5.0.0-rc2
    >>> io.dropwizard.metrics5:metrics-jvm-5.0.0-rc2
-   >>> org.yaml:snakeyaml-1.18
+   >>> org.yaml:snakeyaml-1.23
 
 
 SECTION 2: BSD-STYLE, MIT-STYLE, OR SIMILAR STYLE LICENSES
@@ -60,7 +61,18 @@ APPENDIX. Standard License Files
 Apache License, V2.0 is applicable to the following component(s).
 
 
->>> com.fasterxml.jackson.core:jackson-annotations-2.9.7
+>>> com.fasterxml.jackson.core:jackson-annotations-2.9.0
+
+This copy of Jackson JSON processor annotations is licensed under the
+Apache (Software) License, version 2.0 ("the License").
+See the License for details about distribution rights, and the
+specific rights regarding derivate works.
+
+You may obtain a copy of the License at:
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+>>> com.fasterxml.jackson.core:jackson-annotations-2.9.9
 
 This copy of Jackson JSON processor annotations is licensed under the
 Apache (Software) License, version 2.0 ("the License").
@@ -73,9 +85,9 @@ http://www.apache.org/licenses/LICENSE-2.0
 
 
 
->>> com.fasterxml.jackson.core:jackson-core-2.9.6
+>>> com.fasterxml.jackson.core:jackson-core-2.9.9
 
-Jackson JSON processor
+# Jackson JSON processor
 
 Jackson is a high-performance, Free/Open Source JSON processing library.
 It was originally written by Tatu Saloranta (tatu.saloranta@iki.fi), and has
@@ -83,14 +95,14 @@ been in development since 2007.
 It is currently developed by a community of developers, as well as supported
 commercially by FasterXML.com.
 
-Licensing
+## Licensing
 
 Jackson core and extension components may licensed under different licenses.
 To find the details that apply to this artifact see the accompanying LICENSE file.
 For more information, including possible other licensing options, contact
 FasterXML.com (http://fasterxml.com).
 
-Credits
+## Credits
 
 A list of contributors may be found from CREDITS file, which is included
 in some artifacts (usually source distributions); but is always available
@@ -107,9 +119,9 @@ http://www.apache.org/licenses/LICENSE-2.0
 
 
 
->>> com.fasterxml.jackson.core:jackson-databind-2.9.6
+>>> com.fasterxml.jackson.core:jackson-databind-2.9.9
 
-Jackson JSON processor
+# Jackson JSON processor
 
 Jackson is a high-performance, Free/Open Source JSON processing library.
 It was originally written by Tatu Saloranta (tatu.saloranta@iki.fi), and has
@@ -117,14 +129,14 @@ been in development since 2007.
 It is currently developed by a community of developers, as well as supported
 commercially by FasterXML.com.
 
-Licensing
+## Licensing
 
 Jackson core and extension components may be licensed under different licenses.
 To find the details that apply to this artifact see the accompanying LICENSE file.
 For more information, including possible other licensing options, contact
 FasterXML.com (http://fasterxml.com).
 
-Credits
+## Credits
 
 A list of contributors may be found from CREDITS file, which is included
 in some artifacts (usually source distributions); but is always available
@@ -141,7 +153,7 @@ http://www.apache.org/licenses/LICENSE-2.0
 
 
 
->>> com.fasterxml.jackson.dataformat:jackson-dataformat-yaml-2.9.6
+>>> com.fasterxml.jackson.dataformat:jackson-dataformat-yaml-2.9.9
 
 Jackson JSON processor
 
@@ -200,44 +212,21 @@ License: Apache 2.0
 
 LICENSE : APACHE 2.0
 
->>> org.yaml:snakeyaml-1.18
+>>> org.yaml:snakeyaml-1.23
 
-Copyright (c) 2008, http:www.snakeyaml.org
+Copyright (c) 2008, http://www.snakeyaml.org
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-http:www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
-ADDITIONAL LICENSE INFORMATION:
-
->BSD – 2Clause
-
-[PLEASE NOTE:  VMWARE, INC. ELECTS TO USE AND DISTRIBUTE THIS COMPONENT UNDER THE TERMS OF THE [BSD LICENSE].  PLEASE SEE BELOW FOR THE FULL TEXT OF THE BSD LICENSE.  THE ORIGINAL LICENSE TERMS ARE REPRODUCED BELOW ONLY AS A REFERENCE.]
-
-snakeyaml-1.18-sources.jar\org\yaml\snakeyaml\external\biz\base64Coder\Base64Coder.java
-
-Copyright 2003-2010 Christian d'Heureuse, Inventec Informatik AG, Zurich, Switzerland
-www.source-code.biz, www.inventec.ch/chdh
-
-This module is multi-licensed and may be used under the terms
-of any of the following licenses:
-
-EPL, Eclipse Public License, V1.0 or later, http:www.eclipse.org/legal
-LGPL, GNU Lesser General Public License, V2.1 or later, http:www.gnu.org/licenses/lgpl.html
-GPL, GNU General Public License, V2 or later, http:www.gnu.org/licenses/gpl.html
-AL, Apache License, V2.0 or later, http:www.apache.org/licenses
-BSD, BSD License, http:www.opensource.org/licenses/bsd-license.php
-
-Please contact the author if you need another license.
-This module is provided "as is", without warranties of any kind.
 
 
 
@@ -269,8 +258,6 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE,  ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
 
 --------------- SECTION 3: Creative Commons Attribution 2.5  ----------
 
@@ -465,8 +452,7 @@ hold each Contributor harmless for any liability incurred by, or claims
 asserted against, such Contributor by reason of your accepting any such
 warranty or additional liability.
 
-END OF TERMS AND CONDITIONS 
-
+END OF TERMS AND CONDITIONS 
 
 --------------- SECTION 2: Creative Commons Attribution 2.5  -----------
 
@@ -531,8 +517,8 @@ UNLESS OTHERWISE MUTUALLY AGREED TO BY THE PARTIES IN WRITING, LICENSOR OFFERS T
     If any provision of this License is invalid or unenforceable under applicable law, it shall not affect the validity or enforceability of the remainder of the terms of this License, and without further action by the parties to this agreement, such provision shall be reformed to the minimum extent necessary to make such provision valid and enforceable.
     No term or provision of this License shall be deemed waived and no breach consented to unless such waiver or consent shall be in writing and signed by the party to be charged with such waiver or consent.
     This License constitutes the entire agreement between the parties with respect to the Work licensed here. There are no understandings, agreements or representations with respect to the Work not specified here. Licensor shall not be bound by any additional provisions that may appear in any communication from You. This License may not be modified without the mutual written agreement of the Licensor and You.
-
 	
+
 ======================================================================
 
 To the extent any open source components are licensed under the GPL
@@ -551,4 +537,4 @@ Source Files is valid for three years from the date you acquired or last used th
 Software product. Alternatively, the Source Files may accompany the
 VMware service.
 
-[WAVEFRONTRUNTIMESDKJVM095GAAB042919]
+[WAVEFRONTRUNTIMESDKJVM096GANT061819]
