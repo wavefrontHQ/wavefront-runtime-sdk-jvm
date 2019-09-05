@@ -1,6 +1,6 @@
 open_source_licenses.txt
 
-Wavefront by VMware JVM SDK 0.9.7 GA
+Wavefront by VMware JVM SDK 0.9.8 GA
 
 ======================================================================
 
@@ -30,7 +30,7 @@ SECTION 1: Apache License, V2.0
    >>> com.fasterxml.jackson.core:jackson-annotations-2.9.0
    >>> com.fasterxml.jackson.core:jackson-annotations-2.9.9
    >>> com.fasterxml.jackson.core:jackson-core-2.9.9
-   >>> com.fasterxml.jackson.core:jackson-databind-2.9.9
+   >>> com.fasterxml.jackson.core:jackson-databind-2.9.9.3
    >>> com.fasterxml.jackson.dataformat:jackson-dataformat-yaml-2.9.9
    >>> com.tdunning:t-digest-3.2
    >>> io.dropwizard.metrics5:metrics-core-5.0.0-rc2
@@ -119,7 +119,7 @@ http://www.apache.org/licenses/LICENSE-2.0
 
 
 
->>> com.fasterxml.jackson.core:jackson-databind-2.9.9
+>>> com.fasterxml.jackson.core:jackson-databind-2.9.9.3
 
 # Jackson JSON processor
 
@@ -258,6 +258,8 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE,  ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
 
 --------------- SECTION 3: Creative Commons Attribution 2.5  ----------
 
@@ -452,7 +454,8 @@ hold each Contributor harmless for any liability incurred by, or claims
 asserted against, such Contributor by reason of your accepting any such
 warranty or additional liability.
 
-END OF TERMS AND CONDITIONS 
+END OF TERMS AND CONDITIONS 
+
 
 --------------- SECTION 2: Creative Commons Attribution 2.5  -----------
 
@@ -537,4 +540,4 @@ Source Files is valid for three years from the date you acquired or last used th
 Software product. Alternatively, the Source Files may accompany the
 VMware service.
 
-[WAVEFRONTRUNTIMESDKJVM097GANT061819]
+[WAVEFRONTRUNTIMESDKJVM098GATR090319]
