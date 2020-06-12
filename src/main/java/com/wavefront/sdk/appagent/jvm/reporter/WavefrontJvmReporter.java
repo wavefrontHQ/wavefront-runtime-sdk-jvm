@@ -7,6 +7,8 @@ import com.wavefront.sdk.common.application.HeartbeaterService;
 import com.wavefront.sdk.entities.metrics.WavefrontMetricSender;
 
 import javax.annotation.Nullable;
+
+import java.io.Closeable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Collections;
@@ -26,7 +28,7 @@ import static com.wavefront.sdk.common.Constants.SHARD_TAG_KEY;
  *
  * @author Sushant Dewan (sushant@wavefront.com).
  */
-public class WavefrontJvmReporter {
+public class WavefrontJvmReporter implements Closeable {
 
   private final WavefrontInternalReporter wfReporter;
   private final int reportingIntervalSeconds;
@@ -56,6 +58,15 @@ public class WavefrontJvmReporter {
   public void stop() {
     wfReporter.stop();
     heartbeaterService.close();
+  }
+
+  @Override
+  public void close() {
+    this.stop();
+  }
+
+  public void report() {
+    this.wfReporter.report();
   }
 
   public static class Builder {
