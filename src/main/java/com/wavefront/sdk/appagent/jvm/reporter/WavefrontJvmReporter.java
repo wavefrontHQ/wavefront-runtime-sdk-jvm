@@ -33,18 +33,31 @@ import static com.wavefront.sdk.common.Utils.getSemVer;
 public class WavefrontJvmReporter implements Closeable {
 
   private final WavefrontInternalReporter wfReporter;
+  private final WavefrontInternalReporter sdkMetricsReporter;
   private final int reportingIntervalSeconds;
   private final HeartbeaterService heartbeaterService;
 
+  @Deprecated
   private WavefrontJvmReporter(WavefrontInternalReporter wfReporter,
                                int reportingIntervalSeconds,
                                WavefrontMetricSender wavefrontMetricSender,
                                ApplicationTags applicationTags,
                                String source) {
+    this(wfReporter, null, reportingIntervalSeconds, wavefrontMetricSender, applicationTags,
+        source);
+  }
+
+  private WavefrontJvmReporter(WavefrontInternalReporter wfReporter,
+                               WavefrontInternalReporter sdkMetricsReporter,
+                               int reportingIntervalSeconds,
+                               WavefrontMetricSender wavefrontMetricSender,
+                               ApplicationTags applicationTags,
+                               String source) {
     this.wfReporter = wfReporter;
+    this.sdkMetricsReporter = sdkMetricsReporter;
     this.reportingIntervalSeconds = reportingIntervalSeconds;
     heartbeaterService = new HeartbeaterService(wavefrontMetricSender, applicationTags,
-            Collections.singletonList(JVM_COMPONENT), source);
+        Collections.singletonList(JVM_COMPONENT), source);
   }
 
   /**
@@ -52,6 +65,9 @@ public class WavefrontJvmReporter implements Closeable {
    */
   public void start() {
     wfReporter.start(reportingIntervalSeconds, TimeUnit.SECONDS);
+    if (sdkMetricsReporter != null) {
+      sdkMetricsReporter.start(1, TimeUnit.MINUTES);
+    }
   }
 
   /**
@@ -60,6 +76,9 @@ public class WavefrontJvmReporter implements Closeable {
   public void stop() {
     wfReporter.stop();
     heartbeaterService.close();
+    if (sdkMetricsReporter != null) {
+      sdkMetricsReporter.stop();
+    }
   }
 
   @Override
@@ -149,14 +168,12 @@ public class WavefrontJvmReporter implements Closeable {
       WavefrontInternalReporter sdkMetricsReporter = new WavefrontInternalReporter.Builder().
           prefixedWith(SDK_METRIC_PREFIX + ".wavefront_jvm.reporter").withSource(source).
           withReporterPointTags(pointTags).build(wavefrontSender);
-      sdkMetricsReporter.start(1, TimeUnit.MINUTES);
-
       double sdkVersion = getSemVer();
       sdkMetricsReporter.newGauge(new MetricName("version", Collections.EMPTY_MAP),
           () -> (() -> sdkVersion));
 
-      return new WavefrontJvmReporter(wfReporter, reportingIntervalSeconds, wavefrontSender,
-          applicationTags, source);
+      return new WavefrontJvmReporter(wfReporter, sdkMetricsReporter, reportingIntervalSeconds,
+          wavefrontSender, applicationTags, source);
     }
   }
 }
