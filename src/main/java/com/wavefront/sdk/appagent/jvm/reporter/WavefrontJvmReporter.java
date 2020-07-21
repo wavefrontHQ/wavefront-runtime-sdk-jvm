@@ -1,10 +1,10 @@
 package com.wavefront.sdk.appagent.jvm.reporter;
 
 import com.wavefront.internal.reporter.WavefrontInternalReporter;
+import com.wavefront.internal_reporter_java.io.dropwizard.metrics5.MetricName;
 import com.wavefront.sdk.common.WavefrontSender;
 import com.wavefront.sdk.common.application.ApplicationTags;
 import com.wavefront.sdk.common.application.HeartbeaterService;
-import com.wavefront.sdk.common.metrics.WavefrontSdkMetricsRegistry;
 import com.wavefront.sdk.entities.metrics.WavefrontMetricSender;
 
 import java.io.Closeable;
@@ -146,13 +146,14 @@ public class WavefrontJvmReporter implements Closeable {
           prefixedWith(prefix).withSource(source).withReporterPointTags(pointTags).
           includeJvmMetrics().build(wavefrontSender);
 
-
-      WavefrontSdkMetricsRegistry sdkMetricsRegistry = new WavefrontSdkMetricsRegistry.
-          Builder(wavefrontSender).prefix(SDK_METRIC_PREFIX + ".wavefront_jvm.reporter").
-          source(source).tags(pointTags).build();
+      WavefrontInternalReporter sdkMetricsReporter = new WavefrontInternalReporter.Builder().
+          prefixedWith(SDK_METRIC_PREFIX + ".wavefront_jvm.reporter").withSource(source).
+          withReporterPointTags(pointTags).build(wavefrontSender);
+      sdkMetricsReporter.start(1, TimeUnit.MINUTES);
 
       double sdkVersion = getSemVer();
-      sdkMetricsRegistry.newGauge("version", () -> sdkVersion);
+      sdkMetricsReporter.newGauge(new MetricName("version", Collections.EMPTY_MAP),
+          () -> (() -> sdkVersion));
 
       return new WavefrontJvmReporter(wfReporter, reportingIntervalSeconds, wavefrontSender,
           applicationTags, source);
