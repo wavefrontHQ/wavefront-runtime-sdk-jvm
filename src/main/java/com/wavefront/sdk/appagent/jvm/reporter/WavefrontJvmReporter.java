@@ -1,12 +1,11 @@
 package com.wavefront.sdk.appagent.jvm.reporter;
 
 import com.wavefront.internal.reporter.WavefrontInternalReporter;
+import com.wavefront.internal_reporter_java.io.dropwizard.metrics5.MetricName;
 import com.wavefront.sdk.common.WavefrontSender;
 import com.wavefront.sdk.common.application.ApplicationTags;
 import com.wavefront.sdk.common.application.HeartbeaterService;
 import com.wavefront.sdk.entities.metrics.WavefrontMetricSender;
-
-import javax.annotation.Nullable;
 
 import java.io.Closeable;
 import java.net.InetAddress;
@@ -16,13 +15,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.Nullable;
+
 import static com.wavefront.sdk.appagent.jvm.Constants.JVM_COMPONENT;
 import static com.wavefront.sdk.common.Constants.APPLICATION_TAG_KEY;
 import static com.wavefront.sdk.common.Constants.CLUSTER_TAG_KEY;
 import static com.wavefront.sdk.common.Constants.NULL_TAG_VAL;
+import static com.wavefront.sdk.common.Constants.SDK_METRIC_PREFIX;
 import static com.wavefront.sdk.common.Constants.SERVICE_TAG_KEY;
 import static com.wavefront.sdk.common.Constants.SHARD_TAG_KEY;
-
+import static com.wavefront.sdk.common.Utils.getSemVer;
 /**
  * Wavefront JVM reporter that reports JVM related metrics from your application to Wavefront.
  *
@@ -143,6 +145,16 @@ public class WavefrontJvmReporter implements Closeable {
       WavefrontInternalReporter wfReporter = new WavefrontInternalReporter.Builder().
           prefixedWith(prefix).withSource(source).withReporterPointTags(pointTags).
           includeJvmMetrics().build(wavefrontSender);
+
+      WavefrontInternalReporter sdkMetricsReporter = new WavefrontInternalReporter.Builder().
+          prefixedWith(SDK_METRIC_PREFIX + ".wavefront_jvm.reporter").withSource(source).
+          withReporterPointTags(pointTags).build(wavefrontSender);
+      sdkMetricsReporter.start(1, TimeUnit.MINUTES);
+
+      double sdkVersion = getSemVer();
+      sdkMetricsReporter.newGauge(new MetricName("version", Collections.EMPTY_MAP),
+          () -> (() -> sdkVersion));
+
       return new WavefrontJvmReporter(wfReporter, reportingIntervalSeconds, wavefrontSender,
           applicationTags, source);
     }
