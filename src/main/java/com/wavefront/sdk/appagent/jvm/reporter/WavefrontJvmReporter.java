@@ -24,7 +24,7 @@ import static com.wavefront.sdk.common.Constants.NULL_TAG_VAL;
 import static com.wavefront.sdk.common.Constants.SDK_METRIC_PREFIX;
 import static com.wavefront.sdk.common.Constants.SERVICE_TAG_KEY;
 import static com.wavefront.sdk.common.Constants.SHARD_TAG_KEY;
-import static com.wavefront.sdk.common.Utils.getSemVer;
+import static com.wavefront.sdk.common.Utils.getSemVerGauge;
 /**
  * Wavefront JVM reporter that reports JVM related metrics from your application to Wavefront.
  *
@@ -168,7 +168,7 @@ public class WavefrontJvmReporter implements Closeable {
       WavefrontInternalReporter sdkMetricsReporter = new WavefrontInternalReporter.Builder().
           prefixedWith(SDK_METRIC_PREFIX + ".wavefront_jvm.reporter").withSource(source).
           withReporterPointTags(pointTags).build(wavefrontSender);
-      double sdkVersion = getSemVer();
+      double sdkVersion = getSemVerGauge("wavefront-runtime-sdk-jvm");
       sdkMetricsReporter.newGauge(new MetricName("version", Collections.EMPTY_MAP),
           () -> (() -> sdkVersion));
 
