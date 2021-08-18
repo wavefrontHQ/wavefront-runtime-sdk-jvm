@@ -83,7 +83,7 @@
         <dependency>
             <groupId>com.wavefront</groupId>
             <artifactId>wavefront-internal-reporter-java</artifactId>
-            <version>1.7.4</version>
+            <version>1.7.6</version>
         </dependency>
     </dependencies>
 
